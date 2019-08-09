@@ -1,0 +1,57 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Stock</title>
+    <script src="{% static 'stock/echarts.js' %}" type="text/javascript"></script>
+</head>
+<body>
+    <div id="main" style="width: 600px;height: 400px;"></div>
+    <form>
+        <input type="text" id="stock_code" name="stock_code">
+        <br>
+    </form>
+    <button type="button" id="Search" name="Search">Search</button>
+</body>
+    <script src="{% static 'stock/jquery-3.4.1.min.js' %}"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("button").click(function () {
+                const code = $("#stock_code").val();
+
+                $.get("/stock/stock_history",{'code':code},function (ret) {
+                    let obj = JSON.parse(ret);
+                    let str = "";
+
+                    var dates = new Array();
+                    var close = new Array();
+
+                    for(var i in obj.data){
+                        dates[i] = obj.data[i].Date;
+                        close[i] = obj.data[i].Close;
+                    }
+
+
+                    var myChart = echarts.init(document.getElementById('main'));
+                    var option = {
+                        xAxis: {
+                        type: 'category',
+                        data: dates
+                    },
+                        yAxis: {
+                        type: 'value'
+                    },
+                    series: [{
+                        data: close,
+                        type: 'line'
+                    }]
+                    }
+                    myChart.setOption(option);
+                    //$("#result").html(str);
+                });
+            });
+        });
+
+    </script>
+</html>
