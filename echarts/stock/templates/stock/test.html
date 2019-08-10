@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <script type="text/javascript">
+
+        function getLocalTime(nS) {
+            return new Date(parseInt(nS)).toLocaleString().replace(/:\d{1,2}$/,' ');
+        }
+
+        window.onload = function () {
+            alert("begin");
+            let text = '{"Open":{"1565136000000":1.17,"1565222400000":1.21,"1565308800000":1.29},"High":{"1565136000000":1.21,"1565222400000":1.32,"1565308800000":1.35},"Low":{"1565136000000":1.17,"1565222400000":1.16,"1565308800000":1.29},"Close":{"1565136000000":1.2,"1565222400000":1.3,"1565308800000":1.35},"Volume":{"1565136000000":15600,"1565222400000":230700,"1565308800000":107400},"Dividends":{"1565136000000":0.0,"1565222400000":0.0,"1565308800000":0.0},"Stock Splits":{"1565136000000":0,"1565222400000":0,"1565308800000":0}}';
+            let obj = JSON.parse(text);
+            let dates = new Array();
+            let closes = new Array();
+            for(let ts in obj["Close"]){
+                dates.push(getLocalTime(ts));
+                closes.push(obj.Close[ts]);
+            }
+            alert(dates.toString());
+            alert(closes.toString());
+        }
+    </script>
+</body>
+</html>
