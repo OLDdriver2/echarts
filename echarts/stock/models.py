@@ -11,3 +11,9 @@ class Ticker(models.Model):
     stock_cashflow = models.TextField()
     stock_options = models.TextField()
     stock_balance_sheet = models.TextField()
+
+
+class User(models.Model):
+    id = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=32)
+    pwd = models.CharField(max_length=32)
