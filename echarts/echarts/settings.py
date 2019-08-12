@@ -25,7 +25,7 @@ SECRET_KEY = 'fxid475o6sv(#v)p2#*k0#^3#io-8(g+&@*=vppt3th7*q-9($'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'stock.apps.StockConfig',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -48,7 +49,11 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
 ]
+
+CORS_ORIGIN_ALLOW_ALL = True
 
 ROOT_URLCONF = 'echarts.urls'
 
@@ -122,4 +127,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
+STATICFILES_DIRS = [
+            os.path.join(BASE_DIR, "static/"),
+			]
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, "static_new/")

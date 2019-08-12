@@ -16,22 +16,21 @@
 </body>
     <script src="{% static 'stock/jquery-3.4.1.min.js' %}"></script>
     <script type="text/javascript">
+        function getLocalTime(nS) {
+            return new Date(parseInt(nS)).toLocaleString().replace(/:\d{1,2}$/,' ');
+        }
         $(document).ready(function () {
             $("button").click(function () {
                 const code = $("#stock_code").val();
 
                 $.get("/stock/stock_history",{'code':code},function (ret) {
                     let obj = JSON.parse(ret);
-                    let str = "";
-
-                    var dates = new Array();
-                    var close = new Array();
-
-                    for(var i in obj.stock_history){
-                        dates[i] = obj.stock_history[i].Date;
-                        close[i] = obj.stock_history[i].Close;
+                    let dates = new Array();
+                    let closes = new Array();
+                    for(let ts in obj["Close"]){
+                        dates.push(getLocalTime(ts));
+                        closes.push(obj.Close[ts]);
                     }
-
 
                     var myChart = echarts.init(document.getElementById('main'));
                     var option = {
@@ -43,10 +42,10 @@
                         type: 'value'
                     },
                     series: [{
-                        data: close,
+                        data: closes,
                         type: 'line'
                     }]
-                    }
+                    };
                     myChart.setOption(option);
                     //$("#result").html(str);
                 });

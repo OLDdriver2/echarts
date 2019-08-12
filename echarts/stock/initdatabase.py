@@ -65,7 +65,7 @@ def download(stock, stock_data):
         print('stock_info Timeout')
 
     try:
-        with time_limit(10):
+        with time_limit(100):
             stock_data.append(stock.stock_history_to_json())
             print('stock_history Done')
     except Exception:
