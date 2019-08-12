@@ -76,8 +76,12 @@ WSGI_APPLICATION = 'echarts.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'alpha',
+        'USER': 'lz',
+        'PASSWORD': '960908',
+        'HOST': 'smallcookie.cn',
+        'PORT':'3306',
     }
 }
 

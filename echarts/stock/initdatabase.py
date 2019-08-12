@@ -21,6 +21,7 @@ def init():
             obj = None
             try:
                 obj = Ticker.objects.get(pk=code)
+
                 obj.stock_info = stock_data[0]
                 obj.stock_history = stock_data[1]
                 obj.stock_actions = stock_data[2]
